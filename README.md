@@ -34,21 +34,23 @@ __Create trigger on the table rep_bdx_ledger_test to test the trigger calling bd
 
 ### How to test 
 
-    insert into  rep_bdx_ledger_test select    top(1) *  from brcledger where  PolRef@ like 'TEST01FE%'` 
+    insert into  rep_bdx_ledger_test select top(1) *  from brcledger where  PolRef@ like 'TEST01FE%'` 
 __change polref to an appropriate policy. As of version 1 on __FE__ was enabled__
 
 
     The output will just show the number of the rows inserted:
 
-    (1 row(s) affected)  __This is the row being inserted into rep_bdx_ledger_test from the sql above (top (1))__
+    (1 row(s) affected)  This is the row being inserted into rep_bdx_ledger_test from the sql above (top (1))
 
-    (1 row(s) affected)  __2nd insert is always a single row into the rep_bdx_ledger, this gives information on the transaction that caused the trigger to fire but kept seperately in this table just in case there's an amendment on the record.__
+    (1 row(s) affected)  2nd insert is always a single row into the rep_bdx_ledger, 
+    this gives information on the transaction that caused the trigger to fire but kept seperately 
+    in this table just in case there's an amendment on the record.
 
-    (1 row(s) affected) __This row is an insert into rep_bdx_riskdata - All Locations __
+    (1 row(s) affected) This row is an insert into rep_bdx_riskdata - All Locations
 
-    (1 row(s) affected) __This will be the first property / risk for the policy__
+    (1 row(s) affected) This will be the first property / risk for the policy
 
-    (1 row(s) affected) __This will repeat for each risk details for each property__
+    (1 row(s) affected) This will repeat for each risk details for each property
 
 
     
