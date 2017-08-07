@@ -1,26 +1,24 @@
-'# bdx' 
-
-#Bdx Scripts
+# Bdx Scripts
 
 This runs witin Infocentre. The trigger runs against the BRCLEDGER table and inserts data into *bdx_riskdata* and *bdx_ledger*
 
 MS SQL Does not have the ability (in our version) to do CREATE or ALTER thus all scripts are saved as *CREATE*
 
-##Installation Instructions
+## Installation Instructions
 
-###Setup
+### Setup
 Follow the instructions below to setup Bbx within OGI
-#####Functions 
+##### Functions 
 
     `bdx\functions\GetAddress.sql`
     `bdx\functions\GetFullName.sql`
     `bdx\procedures\bdxManagement.sql`
 
-####Tables
+#### Tables
     `bdx\tables\rep_bdx_ledger.sql`  __Contains the transaction details that caused a change in ledger__
     `bdx\tables\rep_bdx_riskdata.sql` __Contains the actual risk data and version at the time of the change__
 
-####Triggers
+#### Triggers
     `bdx\triggers\trigger_brcledger.sql` __Creates a trigger on **brcledger** that on create captures the data at that point in time and versions it
 
 
