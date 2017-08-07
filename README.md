@@ -9,6 +9,7 @@ MS SQL Does not have the ability (in our version) to do CREATE or ALTER thus all
 ### Setup
 Follow the instructions below to setup Bbx within OGI
 ##### Functions 
+Create the functions within Infocentre
 
     bdx\functions\GetAddress.sql
     bdx\functions\GetFullName.sql
@@ -16,13 +17,18 @@ Follow the instructions below to setup Bbx within OGI
 
 
 #### Tables
+Create the holding tables for ledger and riskdata
+
     bdx\tables\rep_bdx_ledger.sql  Contains the transaction details that caused a change in ledger
     bdx\tables\rep_bdx_riskdata.sql Contains the actual risk data and version at the time of the change
 
 #### Triggers
+Create the trigger on the ledger table 
     bdx\triggers\trigger_brcledger.sql 
 __Creates a trigger on **brcledger** that on create captures the data at that point in time and versions it__
 
+#### Add trigger creation to the Infocentre post refresh scripts.
+The contents of 'bdx\triggers\trigger_brcledger.sql' should be copied to OpenGI.
 
 ## Testing 
 To test the trigger the easiest thing to do is create an empty copy of the ledger table:
