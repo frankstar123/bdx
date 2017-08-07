@@ -28,7 +28,7 @@ Create the trigger on the ledger table
 __Creates a trigger on **brcledger** that on create captures the data at that point in time and versions it__
 
 #### Add trigger creation to the Infocentre post refresh scripts.
-The contents of 'bdx\triggers\trigger_brcledger.sql' should be copied to OpenGI.
+The contents of 'bdx\triggers\trigger_brcledger.sql' should be copied to OpenGI start
 
 ## Testing 
 To test the trigger the easiest thing to do is create an empty copy of the ledger table:

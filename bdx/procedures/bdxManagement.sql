@@ -182,7 +182,7 @@ AS
 						 BD_SMOA as m on a.PRN# = m.Locationprn# and a.PolRef@ = m.PolRef@ LEFT OUTER JOIN
 						 BD_SCOA as n on a.PRN# = n.Locationprn# and a.PolRef@ = n.PolRef@ LEFT OUTER JOIN
 						 BD_STEA as o on a.PRN# = o.Locationprn# and a.PolRef@ = o.PolRef@ 
-						WHERE         (a.PolRef@ = @PolicyId AND a.Ref@ = @ClientRef and e.Locationprn# = 0)
+						WHERE         (a.PolRef@ = @PolicyId AND a.Ref@ = @ClientRef) -- and e.Locationprn# = 0)
 						ORDER BY a.PRN#;
 					--CURSOR END
 				--Get some meta data for policy
