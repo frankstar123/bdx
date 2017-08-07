@@ -10,11 +10,10 @@ MS SQL Does not have the ability (in our version) to do CREATE or ALTER thus all
 Follow the instructions below to setup Bbx within OGI
 ##### Functions 
 
-    ```
     bdx\functions\GetAddress.sql
     bdx\functions\GetFullName.sql
     bdx\procedures\bdxManagement.sql
-    ```
+
 
 #### Tables
     `bdx\tables\rep_bdx_ledger.sql`  __Contains the transaction details that caused a change in ledger__
