@@ -1,12 +1,11 @@
-
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TRIGGER [dbo].[trigger_ledgerTest_create] on [dbo].[rep_bdx_ledger_test]
-AFTER INSERT as 
+ALTER TRIGGER [dbo].[trigger_brcledger_create_test] on [dbo].[rep_bdx_ledger_test]
+after insert as
 BEGIN
-	DECLARE @Branch int;
+		DECLARE @Branch int;
 	DECLARE @PK varchar(28);
 	DECLARE @ClientRef varchar(10);
 	DECLARE @PolicyId varchar(10);
@@ -14,7 +13,7 @@ BEGIN
 	DECLARE @Suffix int;
 	DECLARE @TransType varchar(14);
 	DECLARE @DateRaised datetime;
-	DECLARE @Insurer varchar(40);
+	DECLARE @Insurer int;
 	DECLARE @OriginalDebt float;
 	DECLARE @CommissionAmount float;
 	DECLARE @IptRate float;
@@ -24,18 +23,17 @@ BEGIN
 
 	DECLARE c_inserted cursor for
 		                     --SELECT Branch@,[Key@],[ClientRef@], [PolicyRef@],[Suffix@],[Poltype#],[Trantype#], [Dt_raised] from INSERTED
-					SELECT B@,[Key@],[Ref@], [PolRef@],[Suffix@],[Poltype#],[Trantype#],[Dt_raised#], [Insurer#] , [Orig_debt#], [Comm_amt#],
-					[Ipt_rate#],[ipt_amount#],[yoa#],[Agent_comm#] from INSERTED
-					
+					SELECT Branch@,[Key@],[ClientRef@], [PolicyRef@],[Suffix@],[Poltype],[Trantype],[Dt_raised], Insurer_INSC_VTId , [Orig_debt], [Comm_amt],
+					[Ipt_rate],[ipt_amount],[yoa],[Agent_comm] from INSERTED		
 	open c_inserted
 	fetch next from c_inserted into @Branch, @PK, @ClientRef, @PolicyId, @Suffix, @PolicyType, @TransType, @DateRaised,@Insurer,@OriginalDebt,
 									@CommissionAmount,@IptRate,@IptAmount,@YearOfAccount,@AgentCommission
 	while @@FETCH_STATUS <> -1
 	begin
-		exec dbo.bdxManagement @Branch, @PK, @ClientRef, @PolicyId,@Suffix, @PolicyType, @TransType, @DateRaised, 'Create',@YearOfAccount, @OriginalDebt, @IptAmount,@CommissionAmount;
+		exec dbo.bdxManagement @Branch, @PK, @ClientRef, @PolicyId,@Suffix, @PolicyType, @TransType, @DateRaised, 'Create',@YearOfAccount, @OriginalDebt, @IptAmount, @CommissionAmount;
 		fetch next from c_inserted into @Branch, @PK, @ClientRef, @PolicyId, @Suffix, @PolicyType, @TransType, @DateRaised,@Insurer,@OriginalDebt,@CommissionAmount,@IptRate,@IptAmount,@YearOfAccount,@AgentCommission
 		
 	end
 	close c_inserted;
-	deallocate c_inserted;
+	deallocate c_inserted;			
 END;
