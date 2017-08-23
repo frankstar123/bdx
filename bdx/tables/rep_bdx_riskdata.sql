@@ -18,6 +18,7 @@ CREATE TABLE [dbo].[rep_bdx_riskdata](
 	[ChangeReason] [varchar](50) NOT NULL,
 	[TransType] [varchar](50) NOT NULL,
 	[RiskAddress] [varchar](max) NOT NULL,
+	[PostCode] [varchar](10) NULL,
 	[YearOfAccount] [int] NULL,
 	[HomeBuildingsSI] [int] NULL,
 	[HomeBuildingsPrem] [decimal](11, 2) NULL,
