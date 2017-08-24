@@ -14,6 +14,7 @@ CREATE TABLE [dbo].[rep_bdx_riskdata](
 	[PolicyType] [varchar](2) NOT NULL,
 	[Version] [int] NOT NULL,
 	[DateOfEntry] [datetime] NOT NULL,
+	[InceptionDate] [datetime] NOT NULL,
 	[EffectiveDate] [datetime] NOT NULL,
 	[ChangeReason] [varchar](50) NOT NULL,
 	[TransType] [varchar](50) NOT NULL,
