@@ -9,6 +9,7 @@ CREATE TABLE [dbo].[rep_bdx_riskdata](
 	[Branch] [int] NOT NULL,
 	[ClientRef] [varchar](20) NOT NULL,
 	[PolicyRef] [varchar](20) NOT NULL,
+	[Name][varchar](255) NOT NULL,
 	[InsurerPolicyRef] [varchar](50) NULL,
 	[Insurer] [varchar](50) NULL,
 	[PolicyType] [varchar](2) NOT NULL,
