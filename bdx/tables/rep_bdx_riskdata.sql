@@ -9,6 +9,7 @@ CREATE TABLE [dbo].[rep_bdx_riskdata](
 	[Branch] [int] NOT NULL,
 	[ClientRef] [varchar](20) NOT NULL,
 	[PolicyRef] [varchar](20) NOT NULL,
+	[RecordNumber] [int] NOT NULL,
 	[Name][varchar](255) NOT NULL,
 	[InsurerPolicyRef] [varchar](50) NULL,
 	[Insurer] [varchar](50) NULL,
@@ -66,7 +67,7 @@ CREATE TABLE [dbo].[rep_bdx_riskdata](
 	[BrokeragePctl] [float] NULL,
 	[BrokerageAmount] [float] NULL,
 	[NetPremium] [float] NULL,
-	[GrossPremium] [float] NULL,
+	[TotalPremium] [float] NULL,
 	[IPT] [float] NULL,
 	[AmountDueToInsurers] [float] NULL
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
