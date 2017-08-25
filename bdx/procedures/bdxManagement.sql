@@ -89,6 +89,9 @@ AS
 		insert into rep_bdx_ledger([timestamp], method, branch,[key],clientRef,policyRef,suffix,policyType, transType, dateraised, processed)
 		values (CURRENT_TIMESTAMP, @method, @Branch, @PK,@ClientRef, @PolicyId, @Suffix,@policyType,@TransType,@DateRaised, 0);
 		set @KEYID = SCOPE_IDENTITY(); 
+		set @TotalPremium = @OriginalDebt - @IptAmount; 
+		set @NetPremium = @TotalPremium-@CommissionAmount;
+		set @DueToInsurer = @NetPremium + @IptAmount; 
 		--Next lets get the details of the risk
 		IF(@PolicyType = 'FE') 
 			BEGIN
@@ -103,9 +106,7 @@ AS
 				-- NEED to get the information from the dbo.bd_loc1 table
 				
 				
-				set @TotalPremium = @OriginalDebt - @IptAmount; 
-				set @NetPremium = @TotalPremium-@CommissionAmount;
-				set @DueToInsurer = @NetPremium + @IptAmount; 
+
 				DECLARE c_Risks cursor for 
 					--CURSOR
 					SELECT        			a.Addr1#, a.Addr2#,a.Addr3#,a.Addr4#, a.Pcode#,  a.PRN#, 
