@@ -70,7 +70,9 @@ CREATE TABLE [dbo].[rep_bdx_riskdata](
 	[NetPremium] [float] NULL,
 	[TotalPremium] [float] NULL,
 	[IPT] [float] NULL,
-	[AmountDueToInsurers] [float] NULL
+	[AmountDueToInsurers] [float] NULL,
+	PRIMARY KEY (Id),
+    FOREIGN KEY (LedgerID) REFERENCES rep_bdx_ledger(Id)
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
 GO

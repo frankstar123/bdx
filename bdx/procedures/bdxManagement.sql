@@ -93,7 +93,7 @@ AS
 
 		--Calculate Premiums and debt before the bdx is calculated 
 		set @TotalPremium = @OriginalDebt - @IptAmount; 
-		set @NetPremium = @TotalPremium-@CommissionAmount;
+		set @NetPremium = @TotalPremium-@CommissionAmount-@IptAmount;
 		set @DueToInsurer = @NetPremium + @IptAmount; 
 		--Next lets get the details of the risk
 		IF(@PolicyType = 'FE') 
