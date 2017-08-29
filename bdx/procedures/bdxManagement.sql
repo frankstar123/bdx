@@ -85,10 +85,13 @@ AS
 		DECLARE @_DueToInsurer decimal (11,2);
 		DECLARE @RecordNumber int;
 		
-		--Audit Record for us.
+		--Audit Record for us to view the ledger tranaction that caused the insert
 		insert into rep_bdx_ledger([timestamp], method, branch,[key],clientRef,policyRef,suffix,policyType, transType, dateraised, processed)
 		values (CURRENT_TIMESTAMP, @method, @Branch, @PK,@ClientRef, @PolicyId, @Suffix,@policyType,@TransType,@DateRaised, 0);
 		set @KEYID = SCOPE_IDENTITY(); 
+
+
+		--Calculate Premiums and debt before the bdx is calculated 
 		set @TotalPremium = @OriginalDebt - @IptAmount; 
 		set @NetPremium = @TotalPremium-@CommissionAmount;
 		set @DueToInsurer = @NetPremium + @IptAmount; 
@@ -104,7 +107,6 @@ AS
 					SET @VersionId += 1;
 								
 				-- NEED to get the information from the dbo.bd_loc1 table
-				
 				
 
 				DECLARE c_Risks cursor for 
@@ -207,11 +209,11 @@ AS
 				begin
 					select @Address = dbo.GetAddress(@Addr1,@Addr2,@Addr3,@Addr4,@PostCode);
 					SET @RecordNumber += 1;
-					insert into rep_bdx_riskdata(branch,clientRef,policyRef,recordNumber,name,insurerPolicyRef,Insurer,policyType,version,           DateOfEntry,  InceptionDate,  EffectiveDate, changeReason,TransType,riskAddress, postcode, YearOfAccount, HomeBuildingsSI, HomeBuildingsPrem, HomeContentsSI, HomeContentsPrem, HomePersonalPossSI, HomePersonalPossPrem, FineArtSI, FineArtPrem, 
+					insert into rep_bdx_riskdata(LedgerID,branch,clientRef,policyRef,recordNumber,name,insurerPolicyRef,Insurer,policyType,version,           DateOfEntry,  InceptionDate,  EffectiveDate, changeReason,TransType,riskAddress, postcode, YearOfAccount, HomeBuildingsSI, HomeBuildingsPrem, HomeContentsSI, HomeContentsPrem, HomePersonalPossSI, HomePersonalPossPrem, FineArtSI, FineArtPrem, 
 					PropertyDamageBuildingsSI, PropertyDamageBuildingsPrem, PropertyDamageContentsPrem, PropertyDamageContentsSI, LossOfRevenuePrem, LossOfRevenueSI, LivestockSI, LivestockPrem, LivestockARMSI, LivestockARMPrem, DiseaseSI, DiseasePrem, EmployersLiabilitySI, 
 														EmployersLiabilityPrem, PublicLiabilitySI, PublicLiabilityPrem,	EnvironmentalLiabilitySI, EnvironmentalLiabilityPrem, PersonalAccidentSI, PersonalAccidentPrem, GoodsInTransitSI, GoodsInTransitPrem, AllRisksSI, AllRisksPrem, MoneySI, MoneyPrem, CARSI, CARPrem, TerrorismSI, TerrorismPrem, TotalPremium, IPT, BrokerageAmount, NetPremium, AmountDueToInsurers) 
 														values
-													  (@branch,@clientRef,@PolicyId,@RecordNumber,@FullName, @InsurerPolicyRef,@InsurerName, @PolicyType,@VersionId, CURRENT_TIMESTAMP,@InceptionDate, @DateRaised,   @method, @TransType, @Address, @PostCode, @yearOfAccount, @HomeBuildingsSI,@HomeBuildingsPrem,@HomeContentsSI,@HomeContentsPrem,@HomePersonalPossSI,@HomePersonalPossPrem,@FineArtSI,@FineArtPrem,
+													  (@KEYID,@branch,@clientRef,@PolicyId,@RecordNumber,@FullName, @InsurerPolicyRef,@InsurerName, @PolicyType,@VersionId, CURRENT_TIMESTAMP,@InceptionDate, @DateRaised,   @method, @TransType, @Address, @PostCode, @yearOfAccount, @HomeBuildingsSI,@HomeBuildingsPrem,@HomeContentsSI,@HomeContentsPrem,@HomePersonalPossSI,@HomePersonalPossPrem,@FineArtSI,@FineArtPrem,
 														@PropertyDamageBuildingsSI,@PropertyDamageBuildingsPrem,@PropertyDamageContentsPrem,@PropertyDamageContentsSI,@LossOfRevenuePrem,@LossOfRevenueSI,@LivestockSI,@LivestockPrem,@LivestockARMSI,@LivestockARMPrem,@DiseaseSI,@DiseasePrem,@EmployersLiabilitySI,@EmployersLiabilityPrem,@PublicLiabilitySI,
 														@PublicLiabilityPrem,@EnvironmentalLiabilitySI,@EnvironmentalLiabilityPrem,@PersonalAccidentSI,@PersonalAccidentPrem,@GoodsInTransitSI,@GoodsInTransitPrem,@AllRisksSI,@AllRisksPrem,@MoneySI,@MoneyPrem,@CARSI,@CARPrem,@TerrorismSI,@TerrorismPrem,@TotalPremium, @TotalIptAmount,@TotalCommissionAmount, @_NetPremium, @_DueToInsurer);
 					fetch next from c_Risks into @Addr1, @Addr2, @Addr3, @Addr4, @PostCode, @PRN, @HomeBuildingsSI, 	@HomeBuildingsPrem,	@HomeContentsSI, @HomeContentsPrem,	@HomePersonalPossSI,@HomePersonalPossPrem,@FineArtSI,@FineArtPrem,@PropertyDamageBuildingsSI,@PropertyDamageBuildingsPrem,
@@ -268,11 +270,11 @@ AS
 				BEGIN
 					SET @RecordNumber += 1;
 					select @Address = dbo.GetAddress(@Addr1,@Addr2,@Addr3,@Addr4,@PostCode);
-					insert into rep_bdx_riskdata(branch,clientRef,policyRef,recordNumber,name,insurerPolicyRef,Insurer,policyType,version,           DateOfEntry,  InceptionDate,  EffectiveDate, changeReason,TransType,riskAddress, postcode, YearOfAccount, HomeBuildingsSI, HomeBuildingsPrem, HomeContentsSI, HomeContentsPrem, HomePersonalPossSI, HomePersonalPossPrem, FineArtSI, FineArtPrem, 
+					insert into rep_bdx_riskdata(LedgerId,branch,clientRef,policyRef,recordNumber,name,insurerPolicyRef,Insurer,policyType,version,           DateOfEntry,  InceptionDate,  EffectiveDate, changeReason,TransType,riskAddress, postcode, YearOfAccount, HomeBuildingsSI, HomeBuildingsPrem, HomeContentsSI, HomeContentsPrem, HomePersonalPossSI, HomePersonalPossPrem, FineArtSI, FineArtPrem, 
 						PropertyDamageBuildingsSI, PropertyDamageBuildingsPrem, PropertyDamageContentsPrem, PropertyDamageContentsSI, LossOfRevenuePrem, LossOfRevenueSI, LivestockSI, LivestockPrem, LivestockARMSI, LivestockARMPrem, DiseaseSI, DiseasePrem, EmployersLiabilitySI, 
 						EmployersLiabilityPrem, PublicLiabilitySI, PublicLiabilityPrem,	EnvironmentalLiabilitySI, EnvironmentalLiabilityPrem, PersonalAccidentSI, PersonalAccidentPrem, GoodsInTransitSI, GoodsInTransitPrem, AllRisksSI, AllRisksPrem, MoneySI, MoneyPrem, CARSI, CARPrem, TerrorismSI, TerrorismPrem, TotalPremium, IPT, BrokerageAmount, NetPremium, AmountDueToInsurers) 
 					values
-						(@branch,@clientRef,@PolicyId,@RecordNumber,@FullName, @InsurerPolicyRef,@InsurerName, @PolicyType,@VersionId, CURRENT_TIMESTAMP,@InceptionDate, @DateRaised,   @method, @TransType, @Address, @PostCode, @yearOfAccount, @HomeBuildingsSI,@HomeBuildingsPrem,@HomeContentsSI,@HomeContentsPrem,@HomePersonalPossSI,@HomePersonalPossPrem,@FineArtSI,@FineArtPrem,
+						(@KEYID, @branch,@clientRef,@PolicyId,@RecordNumber,@FullName, @InsurerPolicyRef,@InsurerName, @PolicyType,@VersionId, CURRENT_TIMESTAMP,@InceptionDate, @DateRaised,   @method, @TransType, @Address, @PostCode, @yearOfAccount, @HomeBuildingsSI,@HomeBuildingsPrem,@HomeContentsSI,@HomeContentsPrem,@HomePersonalPossSI,@HomePersonalPossPrem,@FineArtSI,@FineArtPrem,
 						@PropertyDamageBuildingsSI,@PropertyDamageBuildingsPrem,@PropertyDamageContentsPrem,@PropertyDamageContentsSI,@LossOfRevenuePrem,@LossOfRevenueSI,@LivestockSI,@LivestockPrem,@LivestockARMSI,@LivestockARMPrem,@DiseaseSI,@DiseasePrem,@EmployersLiabilitySI,@EmployersLiabilityPrem,@PublicLiabilitySI,
 						@PublicLiabilityPrem,@EnvironmentalLiabilitySI,@EnvironmentalLiabilityPrem,@PersonalAccidentSI,@PersonalAccidentPrem,@GoodsInTransitSI,@GoodsInTransitPrem,@AllRisksSI,@AllRisksPrem,@MoneySI,@MoneyPrem,@CARSI,@CARPrem,@TerrorismSI,@TerrorismPrem,@TotalPremium, @TotalIptAmount,@TotalCommissionAmount, @_NetPremium, @_DueToInsurer);
 					fetch next from c_Risks into @Addr1, @Addr2, @Addr3, @Addr4, @PostCode, @HomeBuildingsSI,@HomeBuildingsPrem,@HomeContentsSI, @HomeContentsPrem, @HomePersonalPossSI, @HomePersonalPossPrem,@FineArtSI,@FineArtPrem,@TotalPremium, @TotalIptAmount, @TotalCommissionAmount, @_NetPremium, @_DueToInsurer;

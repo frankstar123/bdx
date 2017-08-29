@@ -6,6 +6,7 @@ GO
 
 CREATE TABLE [dbo].[rep_bdx_riskdata](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[LedgerID] [int] NOT NULL,
 	[Branch] [int] NOT NULL,
 	[ClientRef] [varchar](20) NOT NULL,
 	[PolicyRef] [varchar](20) NOT NULL,
