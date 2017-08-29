@@ -243,6 +243,16 @@ AS
 
 			--All property risks
 			DECLARE c_Risks cursor for 
+				SELECT  top(1)      
+				'All Location(s)' AS Addr1#, '' as Addr2#,'' as Addr3#,'' as Addr4# ,'N/A' AS Pcode#, 0 as Bld_si#, 0 as bld_prem#, 0 as Cnt_si#, 0 as Cnt_prem#, 0 as V_si#, 0 as V_prem#,0 as fa_si#, 0 as Fa_prem#,
+				@TotalPremium as 'TotalPremium',
+				@IptAmount as 'IptAmount',
+				@CommissionAmount as 'BrokerageAmount',
+				@NetPremium as 'NetPremium',
+				@DueToInsurer as 'DueToInsurer'
+				from BD_HNH1
+				where (PolRef@ = @PolicyId AND Ref@ = @ClientRef and b@ = @Branch)
+				UNION ALL
 				select addr1#,addr2#,addr3#,addr4#,pcode#, Bld_si#, bld_prem#, Cnt_si#, Cnt_prem#, V_si#, V_prem#,fa_si#, Fa_prem#,
 				0 as 'TotalPremium',
 				0 as 'IptAmount',
