@@ -1,11 +1,8 @@
-USE [INFOCENTRE-UAT]
-GO
-/****** Object:  StoredProcedure [dbo].[bdxManagement]    Script Date: 24/08/2017 12:23:57 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-ALTER proc [dbo].[bdxManagement] (
+CREATE proc [dbo].[bdxManagement] (
 	@Branch int,
 	@PK varchar(28),
 	@ClientRef varchar(10),
