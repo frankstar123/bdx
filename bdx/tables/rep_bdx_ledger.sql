@@ -17,7 +17,11 @@ CREATE TABLE [dbo].[rep_bdx_ledger](
 	[policyType] [varchar](2) NOT NULL,
 	[transType] [varchar](20) NOT NULL,
 	[dateRaised] [datetime] NOT NULL,
-	[processed] [int] NULL
+	[processed] [int] NULL,
+ CONSTRAINT [PK_LedgerID] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO

@@ -6,18 +6,23 @@ GO
 
 CREATE TABLE [dbo].[rep_bdx_riskdata](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[LedgerID] [int] NOT NULL,
 	[Branch] [int] NOT NULL,
 	[ClientRef] [varchar](20) NOT NULL,
 	[PolicyRef] [varchar](20) NOT NULL,
+	[RecordNumber] [int] NOT NULL,
+	[Name][varchar](255) NOT NULL,
 	[InsurerPolicyRef] [varchar](50) NULL,
 	[Insurer] [varchar](50) NULL,
 	[PolicyType] [varchar](2) NOT NULL,
 	[Version] [int] NOT NULL,
 	[DateOfEntry] [datetime] NOT NULL,
+	[InceptionDate] [datetime] NOT NULL,
 	[EffectiveDate] [datetime] NOT NULL,
 	[ChangeReason] [varchar](50) NOT NULL,
 	[TransType] [varchar](50) NOT NULL,
 	[RiskAddress] [varchar](max) NOT NULL,
+	[PostCode] [varchar](10) NULL,
 	[YearOfAccount] [int] NULL,
 	[HomeBuildingsSI] [int] NULL,
 	[HomeBuildingsPrem] [decimal](11, 2) NULL,
@@ -63,9 +68,11 @@ CREATE TABLE [dbo].[rep_bdx_riskdata](
 	[BrokeragePctl] [float] NULL,
 	[BrokerageAmount] [float] NULL,
 	[NetPremium] [float] NULL,
-	[GrossPremium] [float] NULL,
+	[TotalPremium] [float] NULL,
 	[IPT] [float] NULL,
-	[AmountDueToInsurers] [float] NULL
+	[AmountDueToInsurers] [float] NULL,
+	PRIMARY KEY (Id),
+    FOREIGN KEY (LedgerID) REFERENCES rep_bdx_ledger(Id)
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
 GO
