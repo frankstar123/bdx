@@ -76,4 +76,3 @@ CREATE TABLE [dbo].[rep_bdx_riskdata](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
 GO
-
